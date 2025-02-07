@@ -241,7 +241,8 @@ blob_fixups: blob_fixups_user_type = {
         ),
 
     'vendor/etc/sensors/hals.conf': blob_fixup()
-        .regex_replace('.*vl53l8.*\n?', ''),
+        .regex_replace('.*vl53l8.*\n?', '')
+        .regex_replace('sensors.qsh.so', 'sensors.qsh_wrapper.so'),
 
     'vendor/lib64/android.hardware.bluetooth.audio-impl_prebuilt.so': blob_fixup()
         .replace_needed(
