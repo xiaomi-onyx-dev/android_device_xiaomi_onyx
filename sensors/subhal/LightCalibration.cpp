@@ -20,9 +20,6 @@ constexpr char kCaliJson[] = "/mnt/vendor/persist/sensors/lightSensorCali.json";
 constexpr char kConfigJson[] = "/odm/etc/sensors/config/lightSensorConfig.json";
 constexpr char kConfigJsonSec[] = "/odm/etc/sensors/config/lightSensorConfigSec.json";
 constexpr char kPanelInfo[] = "/sys/class/mi_display/disp-DSI-0/panel_info";
-constexpr int32_t kGammaRampStart = 50;
-constexpr char kMaxBrightnessProp[] = "ro.vendor.sensor.maxbrightness";
-constexpr int32_t kMaxBrightnessDefault = 2047;
 constexpr char kPrimaryPanel[] = "panel_name=mdss_dsi_n16t_42_02_0a_dsc_vid";
 
 const char* configForPanel() {
@@ -220,20 +217,8 @@ void LightCalibration::loadCwbInfo(const std::string& path) {
               << mCwb.powLow << ".." << mCwb.powHigh;
 }
 
-float LightCalibration::panelGamma(int32_t brightness) const {
-    if (!mCwb.valid) {
-        return 2.2f;
-    }
-    const int32_t max = android::base::GetIntProperty(kMaxBrightnessProp, kMaxBrightnessDefault);
-    if (brightness >= max || max <= kGammaRampStart) {
-        return mCwb.powHigh;
-    }
-    if (brightness <= kGammaRampStart) {
-        return mCwb.powLow;
-    }
-    const float t = static_cast<float>(brightness - kGammaRampStart) /
-                    static_cast<float>(max - kGammaRampStart);
-    return mCwb.powLow + (mCwb.powHigh - mCwb.powLow) * t;
+float LightCalibration::panelGamma(int32_t) const {
+    return mCwb.valid ? mCwb.powHigh : 2.2f;
 }
 
 bool LightCalibration::loadCoefficients(const std::string& dir) {
