@@ -5,6 +5,7 @@ soong_namespace {
         "hardware/lineage/interfaces/power-libperfmgr",
         "hardware/qcom-caf/common/libqti-perfd-client",
         "hardware/xiaomi",
+        "vendor/qcom/opensource/commonsys-intf/display",
         "vendor/xiaomi/onyx"
     ],
 }
