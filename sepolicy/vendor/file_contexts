@@ -53,18 +53,12 @@
 /(vendor|system/vendor)/bin/hw/vendor.xiaomi.hardware.micharge-service-dummy u:object_r:hal_micharge_default_exec:s0
 /dev/smart_charge_cdev u:object_r:vendor_sysfs_xm_power:s0
 
-# CitSensor
-/(odm|vendor/odm|vendor|system/vendor)/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl u:object_r:vendor_hal_citsensorservice_xiaomi_default_exec:s0
-
 # Diag
 /data/vendor/bsplog(/.*)? u:object_r:vendor_bsp_data_log_file:s0
 /data/vendor/diag(/.*)? u:object_r:minidump_data_file:s0
 
-# Displayfeature
-/(vendor|system/vendor)/bin/displayfeature u:object_r:vendor_displayfeature_exec:s0
-/(vendor|system/vendor)/bin/hw/vendor\.xiaomi\.hardware\.displayfeature_aidl-service u:object_r:vendor_hal_displayfeature_xiaomi_default_exec:s0
+# Display
 /dev/mi_display/disp_feature u:object_r:vendor_displayfeature_device:s0
-/dev/mi_display/disp_log u:object_r:vendor_displaylog_device:s0
 /sys/devices/virtual/mi_display/disp_feature/disp-DSI-+[0-1](/.*)? u:object_r:vendor_sysfs_displayfeature:s0
 
 # Fingerprint

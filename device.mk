@@ -134,15 +134,15 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
     init.qti.display_boot.rc \
     init.qti.display_boot.sh \
+    mapper.qti \
     vendor.qti.hardware.display.allocator-service \
+    vendor.qti.hardware.display.composer-service \
     vendor.qti.hardware.display.demura-service \
     vendor.qti.hardware.display.snapalloc-impl
 
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer3-V3-ndk.vendor \
-    vendor.qti.hardware.display.aiqe-V2-ndk.vendor  \
-    vendor.qti.hardware.display.config-V12-ndk.vendor  \
-    vendor.qti.hardware.display.composer3-V1-ndk.vendor 
+PRODUCT_COPY_FILES += \
+    hardware/qcom-caf/sm8750/display/core/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml \
+    hardware/qcom-caf/sm8750/display/hal/config/clstc_config_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/clstc_config_library.xml
 
 # DRM
 PRODUCT_PACKAGES += \

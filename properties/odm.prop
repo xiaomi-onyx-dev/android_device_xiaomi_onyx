@@ -59,28 +59,11 @@ ro.camera.disableHeicUltraHDR=true
 
 # CIT
 persist.vendor.debug.collision.dfx=true
-persist.vendor.sensor.mischeck=true
 ro.vendor.sensor.maxbrightness.sec=10926
 ro.vendor.sensor.maxbrightness=10926
 
 # Crypto
 vendor.wv.oemcrypto.debug.enable_prov40=true
-
-# DisplayFeature
-persist.vendor.dc_backlight.enable=false
-ro.vendor.display.adaptive_hdr.enable=true
-ro.vendor.display.adaptive_hdr2.enable=1
-ro.vendor.display.bl_lut_calib.enable=true
-ro.vendor.display.darkmode_dither.enable=true
-ro.vendor.display.dobly_dpu.enable=true
-ro.vendor.display.kernel_recoder_enable=false
-ro.vendor.display.mi_calib.enable=true
-ro.vendor.display.nature_mode.enable=true
-ro.vendor.display.standard_d75_enable=true
-ro.vendor.display.update_dbi_by_temperature=true
-ro.vendor.histogram.enable=true
-ro.vendor.localhbm.enable=true
-ro.vendor.sre.enable=true
 
 # Graphics
 debug.sf.set_idle_timer_ms=1100

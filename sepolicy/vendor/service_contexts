@@ -10,13 +10,6 @@ vendor.xiaomi.sensor.camera.IMiCam/default  u:object_r:vendor_hal_misensor_camer
 # Charge
 vendor.xiaomi.hardware.micharge.IMiCharge/default   u:object_r:hal_micharge_service:s0
 
-# Citsensor
-vendor.xiaomi.sensor.citsensorservice.ICitSensorService/default   u:object_r:vendor_hal_citsensorservice_xiaomi_service:s0
-
-# Displayfeature
-vendor.xiaomi.hardware.display.mihwcextension.IMiHwcExtension/default       u:object_r:vendor_hal_hwcextension_xiaomi_service:s0
-vendor.xiaomi.hardware.displayfeature_aidl.IDisplayFeature/default       u:object_r:vendor_hal_displayfeature_xiaomi_service:s0
-
 # Fingerprint
 vendor.xiaomi.hardware.fx.tunnel.IMiFxTunnel/default                    u:object_r:vendor_hal_fingerprint_service_xiaomi:s0
 

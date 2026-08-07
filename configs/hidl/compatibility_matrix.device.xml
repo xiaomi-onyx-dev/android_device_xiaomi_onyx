@@ -21,21 +21,6 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
-        <name>vendor.xiaomi.hardware.display.mihwcextension</name>
-        <interface>
-            <name>IMiHwcExtension</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
-        <name>vendor.xiaomi.hardware.displayfeature_aidl</name>
-        <version>2</version>
-        <interface>
-            <name>IDisplayFeature</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
         <name>vendor.xiaomi.hardware.fx.tunnel</name>
         <interface>
             <name>IMiFxTunnel</name>
@@ -75,13 +60,6 @@
         <name>vendor.xiaomi.sensor.camera</name>
         <interface>
             <name>IMiCam</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="aidl" optional="true">
-        <name>vendor.xiaomi.sensor.citsensorservice</name>
-        <interface>
-            <name>ICitSensorService</name>
             <instance>default</instance>
         </interface>
     </hal>
