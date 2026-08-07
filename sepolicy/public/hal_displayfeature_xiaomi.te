@@ -1,2 +1,0 @@
-type vendor_hal_displayfeature_xiaomi_default, domain;
-type vendor_hal_displayfeature_xiaomi_service, hal_service_type, protected_service, service_manager_type;
