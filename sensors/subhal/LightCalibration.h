@@ -45,7 +45,7 @@ class LightCalibration {
         float ir;
     };
 
-    float interpolate(const std::vector<LeakageRow>& table, int32_t brightness, bool ir) const;
+    float lookup(const std::vector<LeakageRow>& table, int32_t brightness, bool ir) const;
     float leakage(int32_t brightness, bool ir) const;
     bool loadLeakageTable(const std::string& path, const std::string& key,
                           std::vector<LeakageRow>* out);

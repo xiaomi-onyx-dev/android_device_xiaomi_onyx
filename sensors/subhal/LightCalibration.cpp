@@ -12,6 +12,7 @@
 
 #include <dirent.h>
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 
 namespace {
@@ -20,7 +21,7 @@ constexpr char kCaliJson[] = "/mnt/vendor/persist/sensors/lightSensorCali.json";
 constexpr char kConfigJson[] = "/odm/etc/sensors/config/lightSensorConfig.json";
 constexpr char kConfigJsonSec[] = "/odm/etc/sensors/config/lightSensorConfigSec.json";
 constexpr char kPanelInfo[] = "/sys/class/mi_display/disp-DSI-0/panel_info";
-constexpr char kPrimaryPanel[] = "panel_name=mdss_dsi_n16t_42_02_0a_dsc_vid";
+constexpr char kPrimaryPanel[] = "panel_name=mdss_dsi_o10u_42_02_0a_dsc_vid";
 
 const char* configForPanel() {
     std::string info;
@@ -258,44 +259,32 @@ bool LightCalibration::loadCoefficients(const std::string& dir) {
     return true;
 }
 
-float LightCalibration::interpolate(const std::vector<LeakageRow>& table, int32_t brightness,
-                                    bool ir) const {
+float LightCalibration::lookup(const std::vector<LeakageRow>& table, int32_t brightness,
+                               bool ir) const {
     if (table.empty()) {
         return 0.f;
     }
 
     const float dbv = static_cast<float>(brightness);
-    const LeakageRow& first = table.front();
-    const LeakageRow& last = table.back();
-    if (dbv <= first.brightness) {
-        return ir ? first.ir : first.als;
-    }
-    if (dbv >= last.brightness) {
-        return ir ? last.ir : last.als;
-    }
+    const LeakageRow* best = &table.front();
+    float bestDistance = std::fabs(dbv - best->brightness);
 
-    for (size_t i = 1; i < table.size(); i++) {
-        const LeakageRow& hi = table[i];
-        if (dbv > hi.brightness) {
-            continue;
+    for (const LeakageRow& row : table) {
+        const float distance = std::fabs(dbv - row.brightness);
+        if (distance < bestDistance) {
+            bestDistance = distance;
+            best = &row;
         }
-        const LeakageRow& lo = table[i - 1];
-        const float span = hi.brightness - lo.brightness;
-        if (span <= 0.f) {
-            return ir ? lo.ir : lo.als;
-        }
-        const float t = (dbv - lo.brightness) / span;
-        return ir ? lo.ir + (hi.ir - lo.ir) * t : lo.als + (hi.als - lo.als) * t;
     }
-    return ir ? last.ir : last.als;
+    return ir ? best->ir : best->als;
 }
 
 float LightCalibration::leakage(int32_t brightness, bool ir) const {
     const float content = mContentLevel.load();
     if (content >= 0.f && mFullWhite.size() > 1) {
-        return interpolate(mFullWhite, brightness, ir) * content;
+        return lookup(mFullWhite, brightness, ir) * content;
     }
-    return interpolate(mLeakage, brightness, ir);
+    return lookup(mLeakage, brightness, ir);
 }
 
 float LightCalibration::leakageAls(int32_t brightness) const {
