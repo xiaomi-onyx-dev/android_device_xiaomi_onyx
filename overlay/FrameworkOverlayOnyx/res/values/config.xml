@@ -33,6 +33,9 @@
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
 
+    <!-- Stock Onyx front/rear ALS, touch/torch protection and brightness transitions. -->
+    <bool name="config_enableOnyxAutoBrightness">true</bool>
+
     <!-- Flag indicating whether we should enable the adaptive sleep.-->
     <bool name="config_adaptive_sleep_available">true</bool>
 

@@ -83,6 +83,29 @@ def blob_fixup_graphic_buffer_size(
 
 
 blob_fixups: blob_fixups_user_type = {
+    # Stock ramps use a 14-bit scale; Android expects normalized float rates.
+    (
+        'vendor/etc/displayconfig/display_id_4630947173316895379.xml',
+        'vendor/etc/displayconfig/display_id_4630947258895476883.xml',
+    ): blob_fixup()
+        .regex_replace(
+            r'<screenBrightnessMap(?:\s+interpolation="[^"]*")?>',
+            '<screenBrightnessMap interpolation="linear">',
+        )
+        .regex_replace(
+            r'\n[ \t]*<screenBrightnessRamp(?:Fast|Slow)(?:Increase|Decrease)>'
+            r'[^<]*</screenBrightnessRamp(?:Fast|Slow)(?:Increase|Decrease)>',
+            '',
+        )
+        .regex_replace(
+            '</screenBrightnessMap>',
+            '</screenBrightnessMap>\n'
+            '    <screenBrightnessRampFastIncrease>0.3010010988</screenBrightnessRampFastIncrease>\n'
+            '    <screenBrightnessRampFastDecrease>0.3010010988</screenBrightnessRampFastDecrease>\n'
+            '    <screenBrightnessRampSlowIncrease>0.2408130875</screenBrightnessRampSlowIncrease>\n'
+            '    <screenBrightnessRampSlowDecrease>0.2408130875</screenBrightnessRampSlowDecrease>',
+        ),
+
     (
         'odm/bin/hw/vendor.xiaomi.hw.touchfeature-service',
         'odm/lib64/libadaptivehdr.so',
